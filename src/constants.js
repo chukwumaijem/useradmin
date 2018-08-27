@@ -1,6 +1,6 @@
 const CONSTANTS = {
-  ADMIN: 'ADMIN',
-  USER: 'USER',
+  ADMIN: 'Admin',
+  USER: 'User',
 };
 
 export default CONSTANTS;

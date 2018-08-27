@@ -1,7 +1,13 @@
+require('dotenv').config({ silent: true });
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const mongoose = require('mongoose');
 const routes = require('./routes');
+
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
+  .then(() => { console.log('Database connected!') })
+  .catch(err => { throw new Error(err.message) });
 
 const app = express();
 const PORT = process.env.PORT || 8000;
