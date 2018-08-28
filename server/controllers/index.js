@@ -19,7 +19,7 @@ function login(req, res) {
         });
         res.send({ success: true, data, token });
       } else {
-        res.send({ success: false, message: 'Inavlid username or password.' });
+        res.send({ success: false, message: 'Invalid username or password.' });
       }
     })
     .catch(err => {
@@ -45,14 +45,26 @@ function signup(req, res) {
   });
 }
 
+function confirmUser(req, res) {
+  User.findById(req.tokenContent.id)
+    .then(user => {
+      const data = user.toObject();
+      delete data.password;
+      res.send({ success: true, data });
+    })
+    .catch(err => {
+      return res.send({ error: err.message });
+    });
+}
+
 function getUsers(req, res) {
   const { limit, skip } = buildPagination(req.query);
   const filters = buildFilters(req.query);
 
   User.find().where(filters).select('username email type').skip(skip).limit(limit)
     .then(users => {
-      const count = 1||User.countDocuments(filters);
-      const page = skip/limit + 1 || 1;
+      const count = 1 || User.countDocuments(filters);
+      const page = skip / limit + 1 || 1;
       res.send(buildResponse(users, count, limit, page));
     })
     .catch(err => {
@@ -88,8 +100,10 @@ function buildResponse(users, total, limit, page) {
   };
 }
 
+
 module.exports = {
   login,
   signup,
   getUsers,
+  confirmUser,
 }
