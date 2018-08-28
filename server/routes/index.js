@@ -4,6 +4,6 @@ const userControoler = require('../controllers');
 
 router.post('/login', userControoler.login);
 router.post('/signup', userControoler.signup);
-router.post('/getUsers', isAdmin, userControoler.getUsers);
+router.get('/getUsers', isAdmin, userControoler.getUsers);
 
 module.exports = router;
