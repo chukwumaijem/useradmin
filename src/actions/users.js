@@ -22,7 +22,6 @@ export function userLogin(data) {
     dispatch(userLoginRequest());
     return api.postEndpoint(`${paths.USERS_LOGIN}`, data)
       .then(user => {
-        console.log('====user====', user);
         if (user.error) {
           return dispatch(userLoginFailure(user.error));
         }
@@ -77,6 +76,20 @@ export function userSignup(data) {
       }
       window.localStorage.setItem('jwt', user.token);
       dispatch(userSignupResponse(user))
+    })
+    .catch(err => dispatch(userSignupFailure(err)));
+}
+
+function fetchUsersResponse(data) {
+  return {
+    type: Types.FETCH_USER_RESPONSE,
+    payload: data,
+  };
+}
+export function fetchUsers(qs) {
+  return dispatch => api.callEndpoint(`${paths.USERS_LIST}${qs}`)
+    .then(data => {
+      dispatch(fetchUsersResponse(data))
     })
     .catch(err => dispatch(userSignupFailure(err)));
 }

@@ -61,15 +61,19 @@ function getUsers(req, res) {
   const { limit, skip } = buildPagination(req.query);
   const filters = buildFilters(req.query);
 
-  User.find().where(filters).select('username email type').skip(skip).limit(limit)
-    .then(users => {
-      const count = 1 || User.countDocuments(filters);
-      const page = skip / limit + 1 || 1;
-      res.send(buildResponse(users, count, limit, page));
-    })
-    .catch(err => {
-      return res.send({ error: err.message });
-    });
+  User.countDocuments(filters, (error, count) => {
+    if (error) {
+      return res.send({ error: error.message });
+    }
+    User.find().where(filters).select('username email type').skip(skip).limit(limit)
+      .then(users => {
+        const page = skip / limit + 1 || 1;
+        res.send(buildResponse(users, count, limit, page));
+      })
+      .catch(err => {
+        return res.send({ error: err.message });
+      });
+  });
 }
 
 function buildPagination(qs) {

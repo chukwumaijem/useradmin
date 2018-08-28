@@ -2,5 +2,6 @@ export {
   userLogin,
   confirmUser,
   userLogout,
-  userSignup
+  userSignup,
+  fetchUsers,
 } from './users';

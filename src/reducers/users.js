@@ -37,6 +37,10 @@ export default function users(state = initialState, action) {
       return Object.assign({}, state, {
         error: action.payload,
       });
+    case Types.FETCH_USER_RESPONSE:
+      return Object.assign({}, state, {
+        usersList: action.payload
+      });
     default:
       return state;
   }
