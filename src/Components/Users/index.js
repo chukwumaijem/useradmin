@@ -1,21 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { fetchUsers } from '../actions';
+import { fetchUsers } from '../../actions';
 import { bindActionCreators } from 'redux';
-
-const User = (user) => {
-  const { email, username, type } = user;
-  return (
-    <div>
-      <p>
-        <label>Email:</label> {email} -
-        <label>Username:</label> {username} -
-        <label>UserType:</label> {type}
-      </p>
-    </div>
-  )
-}
+import User from './SingleUser';
 
 class Users extends Component {
   state = {
@@ -45,6 +33,12 @@ class Users extends Component {
     )
   }
 
+  changePage = (page) => {
+    this.setState({ page }, () => {
+      this.updateQuery();
+    });
+  }
+
   showPagination = () => {
     const { usersList } = this.props;
     if (usersList) {
@@ -54,10 +48,7 @@ class Users extends Component {
       blankArray.length = Math.ceil(pages, 10);
       const buttons = blankArray.fill(1, 0).map((num, index) => {
         const page = index + 1;
-        return <button key={index} onClick={() => {
-          this.setState({ page })
-          this.updateQuery();
-        }}>{page}</button>
+        return <button key={index} onClick={() => this.changePage(page)}>{page}</button>
       });
 
       return <div>{buttons}</div>
@@ -84,7 +75,9 @@ class Users extends Component {
     return <div>
       <p>Users Per Page: {this.showPerPage()}</p>
       {this.showFilters()}
+
       {users.map(user => <User {...user} key={user._id} />)}
+
       {this.showPagination()}
       <button onClick={() => this.updateQuery()}>Load Users</button>
     </div>
