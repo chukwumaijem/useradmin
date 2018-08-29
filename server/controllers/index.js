@@ -15,7 +15,7 @@ function login(req, res) {
         delete data.password;
         const token = createToken({
           id: data._id,
-          type: data.type,
+          isAdmin: data.isAdmin,
         });
         res.send({ success: true, data, token });
       } else {
@@ -39,7 +39,7 @@ function signup(req, res) {
 
     const token = createToken({
       id: data._id,
-      type: data.type,
+      isAdmin: data.isAdmin,
     });
     res.send({ success: true, data, token });
   });
@@ -58,8 +58,8 @@ function confirmUser(req, res) {
 }
 
 function updateUser(req, res) {
-  const { _id, email, username, type } = req.body;
-  User.updateOne({ _id }, { email, username, type }, function (err, user) {
+  const { _id, email, username, isAdmin } = req.body;
+  User.updateOne({ _id }, { email, username, isAdmin }, function (err, user) {
     if (err) {
       return res.send({ error: err.message });
     }
@@ -84,7 +84,7 @@ function getUsers(req, res) {
     if (error) {
       return res.send({ error: error.message });
     }
-    User.find().where(filters).select('username email type').skip(skip).limit(limit)
+    User.find().where(filters).select('username email isAdmin').skip(skip).limit(limit)
       .then(users => {
         const page = skip / limit + 1 || 1;
         res.send(buildResponse(users, count, limit, page));
@@ -108,8 +108,8 @@ function buildPagination(qs) {
 
 function buildFilters(qs) {
   const query = {};
-  const { type } = qs;
-  if (type && ['Admin', 'User'].includes(type)) query.type = type;
+  const { isAdmin } = qs;
+  if (isAdmin ) query.isAdmin = isAdmin;
   return query;
 }
 
