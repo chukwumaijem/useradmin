@@ -15,7 +15,6 @@ class User extends Component {
   }
   showPresentationView = () => {
     const { email, username, isAdmin } = this.state;
-    console.log('===isAdmin===', isAdmin);
     const { _id, qs } = this.props;
     return (
       <p>
