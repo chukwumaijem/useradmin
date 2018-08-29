@@ -17,11 +17,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  type: {
-    type: String,
-    enum: ['User', 'Admin'],
+  isAdmin: {
+    type: Boolean,
     required: true,
-    default: 'User',
+    default: false,
   }
 });
 

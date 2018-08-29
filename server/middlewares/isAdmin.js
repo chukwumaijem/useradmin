@@ -8,7 +8,7 @@ module.exports = function isAdmin(req, res, next) {
     if (token.startsWith('Bearer')) token = token.split('Bearer ')[1];
 
     jwt.verify(token, process.env.SECRET, (err, tokenContent) => {
-      if (err || tokenContent.type !== 'Admin') {
+      if (err || !tokenContent.isAdmin) {
         return res.status(401)
           .json({
             error: err ? err.message : 'Only Admins can view users.'

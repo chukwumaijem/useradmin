@@ -19,7 +19,7 @@ class Users extends Component {
   getQueryString = () => {
     const { per_page, page, type } = this.state;
     let qs = `?per_page=${per_page}&page=${page}`;
-    if (type !== 'all') qs += `&type=${type}`;
+    if (type !== 'all') qs += `&isAdmin=${type === 'Admin'}`;
     return qs;
   }
   updateQuery = () => {
@@ -87,7 +87,7 @@ class Users extends Component {
 
   render() {
     const { isLoggedIn, user } = this.props;
-    const isAdmin = isLoggedIn && user.type === 'Admin';
+    const isAdmin = isLoggedIn && user.isAdmin;
     return (
       <div>
         {

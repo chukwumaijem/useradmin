@@ -10,17 +10,18 @@ class User extends Component {
       editing: false,
       email: props.email,
       username: props.username,
-      type: props.type,
+      isAdmin: props.isAdmin,
     }
   }
   showPresentationView = () => {
-    const { email, username, type } = this.state;
+    const { email, username, isAdmin } = this.state;
+    console.log('===isAdmin===', isAdmin);
     const { _id, qs } = this.props;
     return (
       <p>
         <strong><label>Email:</label></strong> {email} -
         <strong><label>Username:</label></strong> {username} -
-        <strong><label>UserType:</label></strong> {type}
+        <strong><label>isAdmin:</label></strong> {isAdmin.toString()}
         <button onClick={() => this.setState({ editing: true })}>Edit</button>
         <button
           onClick={() => this.props.deleteUser({ _id }, qs)}>
@@ -34,25 +35,26 @@ class User extends Component {
   }
 
   updateUser = () => {
-    const { email, username, type } = this.state;
+    const { email, username, isAdmin } = this.state;
     const { _id } = this.props;
     this.setState({ editing: false });
-    this.props.updateUserData({ email, username, type, _id }, this.props.qs);
+    this.props.updateUserData({ email, username, isAdmin, _id }, this.props.qs);
   }
   cancelUpdate = () => {
     this.setState({ editing: false });
   }
 
   showEditingView = () => {
-    const { email, username, type } = this.state;
+    const { email, username, isAdmin } = this.state;
+    console.log('===isAdmin==', isAdmin)
     return (
       <p>
         <strong><label>Email:</label></strong>
         <input type="text" value={email} onChange={(e) => this.handleInputChange(e, 'email')} /> -
         <strong><label>Username:</label></strong>
         <input type="text" value={username} onChange={(e) => this.handleInputChange(e, 'username')} />  -
-        <strong><label>UserType:</label></strong>
-        <input type="text" value={type} onChange={(e) => this.handleInputChange(e, 'type')} />
+        <strong><label>isAdmin:</label></strong>
+        <input type="checkbox" checked={isAdmin} onChange={() => this.setState({ isAdmin: !isAdmin })} />
         <button onClick={this.updateUser}>Save</button>
         <button onClick={this.cancelUpdate}>Cancel</button>
       </p>

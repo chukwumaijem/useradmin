@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
-import CONSTANTS from '../constants';
 import { confirmUser, userLogout } from '../actions';
 
 const Login = () => <div style={{ width: '100px', display: 'flex', justifyContent: 'space-around' }}>
@@ -27,11 +26,11 @@ class Auth extends Component {
   }
 
   logOut = () => {
-    const { username, type } = this.props.user;
+    const { username, isAdmin } = this.props.user;
     return (
       <div>
         {
-          type === CONSTANTS.ADMIN &&
+          isAdmin &&
           <Link to="/users">Users</Link>
         }
         Welcome, {username}. <span onClick={() => this.onLogOut()}>Logout</span>.

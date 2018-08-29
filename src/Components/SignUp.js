@@ -8,7 +8,7 @@ class SignUp extends Component {
     username: '',
     email: '',
     password: '',
-    type: 'User'
+    isAdmin: false,
   }
 
   handleChange = (e, type) => {
@@ -16,25 +16,21 @@ class SignUp extends Component {
   }
 
   handleCheckboxChange = (e) => {
-    let { type } = this.state;
-    if (type !== 'Admin') {
-      type = 'Admin';
-    } else {
-      type = 'User';
-    }
-    this.setState({ type });
+    let { isAdmin } = this.state;
+
+    this.setState({ isAdmin: !isAdmin });
   }
 
   onSubmit = () => {
-    const { username, email, password, type } = this.state;
-    this.props.userSignup({ username, email, password, type })
+    const { username, email, password, isAdmin } = this.state;
+    this.props.userSignup({ username, email, password, isAdmin })
       .then(() => {
         window.location.href = '/';
       });
   }
 
   render() {
-    const { username, email, password, type } = this.state;
+    const { username, email, password, isAdmin } = this.state;
     return (
       <div>
         <input
@@ -59,7 +55,7 @@ class SignUp extends Component {
           type="checkbox"
           value="isAdmin"
           onChange={this.handleCheckboxChange}
-          checked={type === 'Admin'}
+          checked={isAdmin}
         />
         <button type="button" onClick={this.onSubmit}>Signup</button>
       </div>
