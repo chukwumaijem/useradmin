@@ -16,12 +16,14 @@ class Users extends Component {
     this.updateQuery()
   }
 
-  updateQuery = () => {
+  getQueryString = () => {
     const { per_page, page, type } = this.state;
     let qs = `?per_page=${per_page}&page=${page}`;
     if (type !== 'all') qs += `&type=${type}`;
-
-    this.props.fetchUsers(qs);
+    return qs;
+  }
+  updateQuery = () => {
+    this.props.fetchUsers(this.getQueryString());
   }
 
   showPerPage = () => {
@@ -71,12 +73,12 @@ class Users extends Component {
 
   showUsers = () => {
     const { usersList } = this.props;
-    const users = usersList ? usersList.data : [];
+    const users = usersList && usersList.data ? usersList.data : [];
     return <div>
       <p>Users Per Page: {this.showPerPage()}</p>
       {this.showFilters()}
 
-      {users.map(user => <User {...user} key={user._id} />)}
+      {users.map(user => <User {...user} key={user._id} qs={this.getQueryString()} />)}
 
       {this.showPagination()}
       <button onClick={() => this.updateQuery()}>Load Users</button>

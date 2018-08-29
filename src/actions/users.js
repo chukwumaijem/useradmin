@@ -93,3 +93,17 @@ export function fetchUsers(qs) {
     })
     .catch(err => dispatch(userSignupFailure(err)));
 }
+
+export function updateUserData(data, qs) {
+  return dispatch => api.updateEndPoint(`${paths.USER_UPDATE}`, data)
+    .then(() => {
+      dispatch(fetchUsers(qs))
+    });
+}
+
+export function deleteUser(data, qs) {
+  return dispatch => api.deleteEndPoint(`${paths.DELETE_USER}`, data)
+    .then(() => {
+      dispatch(fetchUsers(qs))
+    });
+}

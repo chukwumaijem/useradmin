@@ -4,4 +4,6 @@ export {
   userLogout,
   userSignup,
   fetchUsers,
+  updateUserData,
+  deleteUser,
 } from './users';

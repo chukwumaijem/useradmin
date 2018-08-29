@@ -57,6 +57,25 @@ function confirmUser(req, res) {
     });
 }
 
+function updateUser(req, res) {
+  const { _id, email, username, type } = req.body;
+  User.updateOne({ _id }, { email, username, type }, function (err, user) {
+    if (err) {
+      return res.send({ error: err.message });
+    }
+    res.send({ user });
+  });
+}
+
+function deleteUser(req, res) {
+  const { _id } = req.body;
+  User.deleteOne({ _id }, function (err, data) {
+    if (err) {
+      return res.send({ error: err.message });
+    }
+    res.send({ success: true, user: data });
+  });
+}
 function getUsers(req, res) {
   const { limit, skip } = buildPagination(req.query);
   const filters = buildFilters(req.query);
@@ -110,4 +129,6 @@ module.exports = {
   signup,
   getUsers,
   confirmUser,
+  updateUser,
+  deleteUser,
 }
