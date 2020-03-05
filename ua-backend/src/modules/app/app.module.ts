@@ -1,8 +1,11 @@
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+
 import { AuthModule } from '../auth/auth.module';
 
+console.info(process.env.MONGODB_URI);
 @Module({
-  imports: [AuthModule],
+  imports: [MongooseModule.forRoot(process.env.MONGODB_URI), AuthModule],
 })
 
-export class AppModule {}
+export class AppModule { }
