@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 import { sign } from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 
-import { ISignup, IUser, ILogin } from './auth.interface';
+import { ISignup, IUser, ILogin } from '../../interfaces'
 
 @Injectable()
 export class AuthService {
