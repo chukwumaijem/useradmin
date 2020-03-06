@@ -11,7 +11,7 @@ export class AuthService {
   constructor(@InjectModel('User') private readonly userModel: Model<IUser>) { }
 
   private generateToken(userData: IUser): string {
-    return sign(userData, process.env.SECRET, { expiresIn: '1d' });
+    return sign(userData, process.env.SECRET, { expiresIn: '1h' });
   }
 
   private verifyPassword(sentPassword, savedPassword): boolean {
