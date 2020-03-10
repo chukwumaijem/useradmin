@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
 import { userSignup } from '../actions';
 
-class SignUp extends Component {
+class SignUp extends Component <any, any> {
   state = {
     username: '',
     email: '',
@@ -11,11 +12,11 @@ class SignUp extends Component {
     isAdmin: false,
   }
 
-  handleChange = (e, type) => {
+  handleChange = (e: any, type: any) => {
     this.setState({ [type]: e.target.value });
   }
 
-  handleCheckboxChange = (e) => {
+  handleCheckboxChange = (e: any) => {
     let { isAdmin } = this.state;
 
     this.setState({ isAdmin: !isAdmin });
@@ -63,7 +64,7 @@ class SignUp extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: any) {
   return bindActionCreators({
     userSignup
   }, dispatch);

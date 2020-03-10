@@ -4,13 +4,13 @@ import { bindActionCreators } from 'redux';
 import { Redirect } from "react-router-dom";
 import { userLogin } from '../actions';
 
-class Login extends Component {
+class Login extends Component<any> {
   state = {
     email: '',
     password: '',
   }
 
-  handleChange = (e, type) => {
+  handleChange = (e: any, type: any) => {
     this.setState({ [type]: e.target.value });
   }
 
@@ -50,14 +50,15 @@ class Login extends Component {
   }
 }
 
-function mapStateToProps({ user: { data, isLoggedIn, isLookingForUser } }) {
+function mapStateToProps(state: any) {
+  const { user: { isLoggedIn, isLookingForUser } } = state;
   return {
     isLoggedIn,
     isLookingForUser
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: any) {
   return bindActionCreators({
     userLogin
   }, dispatch);

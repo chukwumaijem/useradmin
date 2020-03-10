@@ -7,7 +7,7 @@ const initialState = {
   }
 };
 
-export default function users(state = initialState, action) {
+export default function users(state = initialState, action: any) {
   switch (action.type) {
     case Types.USER_LOGIN_REQUEST:
       return Object.assign({}, state, {

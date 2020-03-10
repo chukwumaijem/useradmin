@@ -10,7 +10,7 @@ const Login = () => <div style={{ width: '100px', display: 'flex', justifyConten
 </div>
 
 
-class Auth extends Component {
+class Auth extends Component<any> {
   onLogOut = () => {
     this.props.userLogout();
   }
@@ -51,14 +51,15 @@ class Auth extends Component {
   }
 }
 
-function mapStateToProps({ user: { data, isLoggedIn } }) {
+function mapStateToProps(state: any) {
+  const { user: { data, isLoggedIn } } = state;
   return {
     user: data,
     isLoggedIn,
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: any) {
   return bindActionCreators({
     confirmUser,
     userLogout,

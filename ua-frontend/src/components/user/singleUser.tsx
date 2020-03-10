@@ -3,8 +3,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { updateUserData, deleteUser } from '../../actions';
 
-class User extends Component {
-  constructor(props) {
+class User extends Component<any, any> {
+  constructor(props: any) {
     super(props);
     this.state = {
       editing: false,
@@ -29,7 +29,7 @@ class User extends Component {
       </p>
     )
   }
-  handleInputChange = (e, type) => {
+  handleInputChange = (e: any, type: any) => {
     this.setState({ [type]: e.target.value });
   }
 
@@ -73,7 +73,7 @@ class User extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: any) {
   return bindActionCreators({
     updateUserData,
     deleteUser,

@@ -5,10 +5,10 @@ import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
 import * as serviceWorker from './serviceWorker';
 import store from './store';
-import HomePage from './Components/HomePage';
-import Login from './Components/Login';
-import SignUp from './Components/SignUp';
-import Users from './Components/Users';
+import HomePage from './components/homepage';
+import Login from './components/login';
+import SignUp from './components/signup';
+import Users from './components/user';
 
 
 export const NotFound = () => <h3>Not Found</h3>;

@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { fetchUsers } from '../../actions';
 import { bindActionCreators } from 'redux';
-import User from './SingleUser';
+import User from './singleUser';
 
-class Users extends Component {
+class Users extends Component<any> {
   state = {
     per_page: 1,
     page: 1,
@@ -35,7 +35,7 @@ class Users extends Component {
     )
   }
 
-  changePage = (page) => {
+  changePage = (page: any) => {
     this.setState({ page }, () => {
       this.updateQuery();
     });
@@ -46,9 +46,9 @@ class Users extends Component {
     if (usersList) {
       const { per_page, total } = usersList;
       const pages = total / per_page;
-      const blankArray = [];
-      blankArray.length = Math.ceil(pages, 10);
-      const buttons = blankArray.fill(1, 0).map((num, index) => {
+      const blankArray: any = [];
+      blankArray.length = Math.ceil(pages);
+      const buttons = blankArray.fill(1, 0).map((_: any, index: number) => {
         const page = index + 1;
         return <button key={index} onClick={() => this.changePage(page)}>{page}</button>
       });
@@ -58,7 +58,7 @@ class Users extends Component {
     return '';
   }
 
-  userTypeChange = (e) => {
+  userTypeChange = (e: any) => {
     this.setState({ type: e.target.value });
   }
 
@@ -78,7 +78,7 @@ class Users extends Component {
       <p>Users Per Page: {this.showPerPage()}</p>
       {this.showFilters()}
 
-      {users.map(user => <User {...user} key={user._id} qs={this.getQueryString()} />)}
+      {users.map((user: any) => <User {...user} key={user._id} qs={this.getQueryString()} />)}
 
       {this.showPagination()}
       <button onClick={() => this.updateQuery()}>Load Users</button>
@@ -99,7 +99,8 @@ class Users extends Component {
   }
 }
 
-function mapStateToProps({ user: { data, isLoggedIn, usersList } }) {
+function mapStateToProps(state: any) {
+  const { user: { data, isLoggedIn, usersList } } = state;
   return {
     user: data,
     isLoggedIn,
@@ -107,7 +108,7 @@ function mapStateToProps({ user: { data, isLoggedIn, usersList } }) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: any) {
   return bindActionCreators({
     fetchUsers,
   }, dispatch);
