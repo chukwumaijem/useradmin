@@ -3,14 +3,21 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { confirmUser, userLogout } from '../actions';
+import { IState, IUser } from '../interfaces';
 
 const Login = () => <div style={{ width: '100px', display: 'flex', justifyContent: 'space-around' }}>
   <Link to="/login">Login</Link>
   <Link to="/signup">SignUp</Link>
 </div>
 
+interface IProps {
+  userLogout: () => void;
+  isLoggedIn: boolean;
+  confirmUser: () => void;
+  user: IUser;
+}
 
-class Auth extends Component<any> {
+class Auth extends Component<IProps> {
   onLogOut = () => {
     this.props.userLogout();
   }
@@ -20,7 +27,7 @@ class Auth extends Component<any> {
   }
 
   setUser = () => {
-    if(!this.props.isLoggedIn && window.localStorage.getItem('jwt')) {
+    if (!this.props.isLoggedIn && window.localStorage.getItem('jwt')) {
       this.props.confirmUser();
     }
   }
@@ -51,8 +58,8 @@ class Auth extends Component<any> {
   }
 }
 
-function mapStateToProps(state: any) {
-  const { user: { data, isLoggedIn } } = state;
+function mapStateToProps(state: IState) {
+  const { data, isLoggedIn } = state;
   return {
     user: data,
     isLoggedIn,
@@ -65,5 +72,5 @@ function mapDispatchToProps(dispatch: any) {
     userLogout,
   }, dispatch);
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Auth);
 
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);
