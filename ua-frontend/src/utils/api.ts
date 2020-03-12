@@ -5,7 +5,7 @@ const headers = {
   'Authorization': `Bearer ${window.localStorage.getItem('jwt')}`
 };
 
-export function callEndpoint(endpoint: any) {
+export function callEndpoint(endpoint: string) {
   const url = apiPaths.API_URL + endpoint;
   return fetch(url, {
     credentials: 'include',
@@ -21,7 +21,7 @@ export function callEndpoint(endpoint: any) {
     });
 }
 
-export function postEndpoint(endpoint: any, data: any) {
+export function postEndpoint(endpoint: string, data: any) {
   const url = apiPaths.API_URL + endpoint;
   return fetch(url, {
     method: 'POST',
@@ -38,7 +38,7 @@ export function postEndpoint(endpoint: any, data: any) {
   });
 }
 
-export function updateEndPoint(endpoint: any, data: any) {
+export function updateEndPoint(endpoint: string, data: any) {
   const url = apiPaths.API_URL + endpoint;
   return fetch(url, {
     method: 'PUT',
@@ -55,7 +55,7 @@ export function updateEndPoint(endpoint: any, data: any) {
   });
 }
 
-export function deleteEndPoint(endpoint: any, data: any) {
+export function deleteEndPoint(endpoint: string, data: any) {
   const url = apiPaths.API_URL + endpoint;
   return fetch(url, {
     method: 'DELETE',
