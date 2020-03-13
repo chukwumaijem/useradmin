@@ -1,4 +1,5 @@
 import Types from '../actions/actionTypes';
+import { IAction } from '../interfaces';
 
 const initialState = {
   isLoggedIn: false,
@@ -7,7 +8,7 @@ const initialState = {
   }
 };
 
-export default function users(state = initialState, action: any) {
+export default function users(state = initialState, action: IAction) {
   switch (action.type) {
     case Types.USER_LOGIN_REQUEST:
       return Object.assign({}, state, {
